@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+from courses.views import CourseListView
 from django.contrib import admin
 from django.urls import include, path
 
@@ -33,7 +34,8 @@ auth_views.LogoutView.as_view(),
 name='logout'
 ),
     path('admin/', admin.site.urls),
-    path('course/', include('courses.urls'))
+    path('course/', include('courses.urls')),
+    path('', CourseListView.as_view(), name='course_list'),
 ]
 
 

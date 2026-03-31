@@ -1,0 +1,38 @@
+OrderField
+    ↓ inherits from
+PositiveIntegerField
+    ↓ inherits from
+IntegerField
+    ↓ inherits from
+Field          ← attname lives here
+
+
+########################################
+
+if getattr(model_instance, self.attname)
+
+attname differs from the field name only when you have a ForeignKey — Django appends _id to the attname:
+
+class Module(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE) 
+
+    #field name --> course
+    #attname ---> course_id
+
+module.course      # → Course object
+module.course_id   # → 5  (the raw integer)
+
+so model.field_name --> (custom value we set)
+
+
+##########################################
+
+courses_module
+─────────────────────────────────────────
+id  │  course_id  │  title          │  order
+────┼─────────────┼─────────────────┼───────
+1   │  1          │  Introduction   │  0
+2   │  1          │  Variables      │  1
+3   │  1          │  Functions      │  2
+4   │  2          │  Getting Start  │  0   ← resets for new course
+5   │  2          │  Advanced       │  1
