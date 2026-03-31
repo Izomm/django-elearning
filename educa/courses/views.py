@@ -17,6 +17,8 @@ from .forms import ModuleFormSet
 from django.db.models import Count
 from .models import Subject
 
+
+
 from django.views.generic.detail import DetailView
 
 
@@ -187,7 +189,7 @@ class CourseListView(TemplateResponseMixin, View):
         if subject:
                 subject = get_object_or_404(Subject, slug=subject)
                 courses = courses.filter(subject=subject)
-                return self.render_to_response(
+        return self.render_to_response(
                 {
                 'subjects': subjects,
                 'subject': subject,
