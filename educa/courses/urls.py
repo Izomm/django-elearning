@@ -72,6 +72,22 @@ path(
 views.CourseDetailView.as_view(),
 name='course_detail'),
 
+path(
+'courses/',
+views.StudentCourseListView.as_view(),
+name='student_course_list'
+),
+path(
+'course/<pk>/',
+views.StudentCourseDetailView.as_view(),
+name='student_course_detail'
+),
+path(
+'course/<pk>/<module_id>/',
+views.StudentCourseDetailView.as_view(),
+name='student_course_detail_module'
+),
+
 
 
 
