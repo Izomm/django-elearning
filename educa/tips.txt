@@ -36,3 +36,20 @@ id  │  course_id  │  title          │  order
 3   │  1          │  Functions      │  2
 4   │  2          │  Getting Start  │  0   ← resets for new course
 5   │  2          │  Advanced       │  1
+
+
+#Since we cant Query Cached data, here are a few caching patterns
+
+1. #Cache each specific request 
+
+cache.set('all_courses', list(Course.objects.all()))
+cache.set('math_courses', list(Course.objects.filter(subject='math')))
+cache.set('courses_by_title', list(Course.objects.order_by('title'))
+
+2. Filter Cache in Python
+
+courses = cache.get('all_courses')
+
+# filter in Python instead of ORM
+math_courses = [c for c in courses if c.subject == 'math']
+sorted_courses = sorted(courses, key=lambda c: c.title)
