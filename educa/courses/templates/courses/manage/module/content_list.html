@@ -35,7 +35,6 @@ Edit modules</a></p>
 {% for content in module.contents.all %}
 <div data-id="{{ content.id }}">
 {% with item=content.item %}
-<p>{{content.content_type}}</p>
 <p>({{ item|model_name }})</p>
 <a href="{% url "module_content_update" module.id item|model_name item.id %}">Edit</a>
 

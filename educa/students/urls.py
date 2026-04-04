@@ -6,11 +6,11 @@ path(
 views.StudentRegistrationView.as_view(),
 name='student_registration'
 ),
-# path(
-# 'enroll-course/',
-# views.StudentEnrollCourseView.as_view(),
-# name='student_enroll_course'
-# ),
+path(
+'enroll-course/',
+views.StudentEnrollCourseView.as_view(),
+name='student_enroll_course'
+),
  path(
         'courses/',
         views.StudentCourseListView.as_view(),
@@ -27,7 +27,6 @@ path(
 views.StudentCourseDetailView.as_view(),
 name='student_course_detail_module'
 ),
-    path('courses/enroll/', views.StudentEnrollCourseView.as_view(), name='student_enroll_course'),
   
 ]
 
