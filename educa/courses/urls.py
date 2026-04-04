@@ -27,6 +27,11 @@ path(
         views.ContentCreateUpdateView.as_view(),
         name='module_content_create',
     ),
+      path(
+        'module/<int:module_id>/content/<model_name>/<id>/',
+        views.ContentCreateUpdateView.as_view(),
+        name='module_content_update',
+    ),
 
 path(
 '<pk>/module/',
@@ -62,7 +67,7 @@ name='content_order'
         name='module_content_update',
     ),
 
-    path(
+path(
 'subject/<slug:subject>/',
 views.CourseListView.as_view(),
 name='course_list_subject'
@@ -71,6 +76,7 @@ path(
 '<slug:slug>/',
 views.CourseDetailView.as_view(),
 name='course_detail'),
+
 
 
 

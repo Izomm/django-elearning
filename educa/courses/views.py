@@ -17,6 +17,8 @@ from .forms import ModuleFormSet
 from django.db.models import Count
 from .models import Subject
 
+from students.forms import CourseEnrollForm
+
 
 
 from django.views.generic.detail import DetailView
@@ -135,6 +137,32 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             )
         return super().dispatch(request, module_id, model_name, id)
     
+    def get(self, request, module_id, model_name, id=None):
+        form = self.get_form(self.model, instance=self.obj)
+        return self.render_to_response(
+            {'form': form, 'object': self.obj}
+        )
+
+    def post(self, request, module_id, model_name, id=None):
+        form = self.get_form(
+            self.model,
+            instance=self.obj,
+            data=request.POST,
+            files=request.FILES,
+        )
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.owner = request.user
+            obj.save()
+            if not id:
+                # new content
+                Content.objects.create(module=self.module, item=obj)
+            return redirect('module_content_list', self.module.id)
+        return self.render_to_response(
+            {'form': form, 'object': self.obj}
+        )
+
+    
 
 class ContentDeleteView(View):
     def post(self, request, id):
@@ -201,3 +229,10 @@ class CourseListView(TemplateResponseMixin, View):
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'courses/course/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enroll_form'] = CourseEnrollForm(
+            initial={'course': self.object}
+        )
+        return context

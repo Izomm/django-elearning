@@ -29,19 +29,23 @@ class StudentRegistrationView(CreateView):
         login(self.request, user)
         return result
     
-class StudentEnrollCourseView(LoginRequiredMixin, FormView):
-    course = None
-    form_class = CourseEnrollForm
-
-    def form_valid(self, form):
-        self.course = form.cleaned_data['course']
-        self.course.students.add(self.request.user)
-        return super().form_valid(form)
+# class StudentEnrollCourseView(LoginRequiredMixin, FormView):
+#     print('wetin')
+#     course = None
+#     form_class = CourseEnrollForm
+#     http_method_names = ['post']
     
-    def get_success_url(self):
-        return reverse_lazy(
-        'student_course_detail', args=[self.course.id]
-        )
+    
+
+#     def form_valid(self, form):
+#         self.course = form.cleaned_data['course']
+#         self.course.students.add(self.request.user)
+#         return super().form_valid(form)
+    
+#     def get_success_url(self):
+#         return reverse_lazy(
+#         'student_course_detail', args=[self.course.id]
+#         )
     
 class StudentCourseListView(LoginRequiredMixin, ListView):
     model = Course
@@ -74,3 +78,21 @@ class StudentCourseDetailView(LoginRequiredMixin, DetailView):
             # get first module
             context['module'] = course.modules.all()[0]
             return context
+        
+
+
+class StudentEnrollCourseView(LoginRequiredMixin, FormView):
+    course = None
+    form_class = CourseEnrollForm
+    # template_name = 'students/course/enroll.html'
+    
+
+    def form_valid(self, form):
+        self.course = form.cleaned_data['course']
+        self.course.students.add(self.request.user)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'student_course_detail', args=[self.course.id]
+        )
