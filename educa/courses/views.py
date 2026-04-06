@@ -14,12 +14,13 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views.generic.base import TemplateResponseMixin, View
 from .forms import ModuleFormSet
 
-from django.db.models import Count
+
 from .models import Subject
 from django.core.cache import cache
 
 
 from django.views.generic.detail import DetailView
+from django.db.models import Count
 
 
 from django.contrib.auth.mixins import (

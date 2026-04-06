@@ -84,6 +84,8 @@ class Content(models.Model):
 
     order = OrderField(blank=True, for_fields=['module'])
 
+    
+
     class Meta:
         ordering = ['order']
 
@@ -107,13 +109,23 @@ class ItemBase(models.Model):
     
 
 class Text(ItemBase):
+
     content = models.TextField()
+    def render(self):  # does this exist?
+        return self.content
 
 class File(ItemBase):
     file = models.FileField(upload_to='files')
 
+    def render(self):  # does this exist?
+        return self.file
+
 class Image(ItemBase):
     file = models.FileField(upload_to='images')
+    def render(self):  # does this exist?
+        return self.file
 
 class Video(ItemBase):
     url = models.URLField()
+    def render(self):  # does this exist?
+        return self.url
