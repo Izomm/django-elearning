@@ -8,6 +8,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 
+
 class Subject(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -88,6 +89,10 @@ class Content(models.Model):
 
     class Meta:
         ordering = ['order']
+    
+    def __str__(self):
+        print(self.module)
+        return super().__str__()
 
 
 
